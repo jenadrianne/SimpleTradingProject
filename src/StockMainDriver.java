@@ -9,7 +9,7 @@ public class StockMainDriver {
 	public static List<Trader> tradersList = new ArrayList<Trader>();
 	public static List<Stock> stockList = new ArrayList<Stock>();
 	public static List<watchList> watchlist = new ArrayList<watchList>();
-	public static Map<Double , List<StockPurchase>> invoiceTable = new HashMap <Double, List<StockPurchase>>();
+	public static Map<Integer , List<StockPurchase>> invoiceTable = new HashMap <Integer, List<StockPurchase>>();
 	
 	public static void main(String[] args) {
 		
@@ -135,11 +135,11 @@ public class StockMainDriver {
 	public static void Buy() {
 		displayAllTraderInfromation(); 
 		System.out.println("\n\n Buy for Trader. Please enter ID : ");
-		Double traderID = Double.parseDouble(scan.next());
+		Integer traderID = Integer.parseInt(scan.next().trim());
 		
 		displayAllStockInformation(); 
 		System.out.println("\n\n Buy Stock . Please enter ID : ");
-		Double stockID = Double.parseDouble(scan.next().trim());
+		Integer stockID = Integer.parseInt(scan.next().trim());
 		System.out.println("QTY : ");
 		int stockQty = scan.nextInt(); 
 		Stock data = getStockByID (stockID);
@@ -162,7 +162,7 @@ public class StockMainDriver {
 	 * @param invoice
 	 * @param traderID
 	 */
-	public static void addInvoice(StockPurchase invoice, double traderID) {
+	public static void addInvoice(StockPurchase invoice, int traderID) {
 		List<StockPurchase> purchaseList = invoiceTable.get(traderID);
 		if(purchaseList ==null) {
 			purchaseList = new ArrayList<StockPurchase>();
@@ -176,7 +176,7 @@ public class StockMainDriver {
 	public static void Sell() {
 		displayAllTraderInfromation(); 
 		System.out.println("\n\n Sell for Trader. Please enter ID : ");
-		Double traderID = Double.parseDouble(scan.next());
+		int traderID = scan.nextInt();
 		
 		//get purchases from trader 
 		List<StockPurchase> purchaseList = invoiceTable.get(traderID);
@@ -188,7 +188,7 @@ public class StockMainDriver {
 		}
 		System.out.println("*********************************************");
 		System.out.println("Enter ID of stock to sell:");
-		Double stockId = Double.parseDouble(scan.next());
+		int stockId = scan.nextInt();
 		System.out.println("QTY: ");
 		int qty = scan.nextInt();
 		
@@ -212,7 +212,7 @@ public class StockMainDriver {
 	 * @param id
 	 * @return
 	 */
-	public static Stock getStockByID(double id) {
+	public static Stock getStockByID(int id) {
 		Stock data = null;
 		for(Stock temp : stockList) {
 			if(temp.getStockID() == id) {
@@ -224,7 +224,7 @@ public class StockMainDriver {
 		return data;
 	}
 
-	public static boolean verifyStockQty(double stockId, int qty) {
+	public static boolean verifyStockQty(int stockId, int qty) {
 		boolean retval = false;
 		Stock s = getStockByID(stockId);
 		if(s.getStockQty() <= qty && qty > 0) {

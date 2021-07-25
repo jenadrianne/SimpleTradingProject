@@ -9,7 +9,7 @@ public class Stock {
 	/*
 	 * State Variables
 	 */
-	private double StockID; 
+	private int StockID; 
 	private String StockName; 
 	private double currPrice; 
 	private double maxPrice; 
@@ -39,18 +39,18 @@ public class Stock {
 		this.minPrice = minPrice; 
 		this.stockQty = stockQty; 
 		Random random = new Random();
-        this.StockID = random.nextInt();
+        this.StockID = Math.abs(random.nextInt());
 		
 		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		this.lastModified = date;
 	}
 
-	public double getStockID() {
+	public int getStockID() {
 		return StockID;
 	}
 
-	public void setStockID(double stockID) {
+	public void setStockID(int stockID) {
 		StockID = stockID;
 	}
 
@@ -106,7 +106,7 @@ public class Stock {
 	 * View Stock Information
 	 */
 	public void viewStock() {
-		System.out.format("StockID : %f\n", this.StockID); 
+		System.out.format("StockID : %d\n", this.StockID); 
 		System.out.format("Stock Name: %s\n ", this.StockName); 
 		System.out.format("Stock Current Selling price: $%.2f\n ", this.currPrice); 
 		System.out.format("Stock Max Selling price: $%.2f \n", this.maxPrice); 
@@ -142,7 +142,7 @@ public class Stock {
 	 * @param minPrice
 	 * @param stockQty
 	 */
-	public List<Stock>  deleteStock(List<Stock> stockList, double id) {
+	public List<Stock>  deleteStock(List<Stock> stockList, int id) {
 		for(Stock temp : stockList) {
 			if(temp.getStockID() == id) {
 				stockList.remove(temp); 
@@ -173,7 +173,7 @@ public class Stock {
 	 * @param stockList
 	 * @return
 	 */
-	public int checkAvailability(double stockId, List<Stock> stockList) {
+	public int checkAvailability(int stockId, List<Stock> stockList) {
 		for(Stock temp : stockList) {
 			if(temp.getStockID() == stockId) {
 				return temp.stockQty;
@@ -187,7 +187,7 @@ public class Stock {
 	 * @param stockList
 	 * @param id
 	 */
-	public boolean searchStock(List<Stock> stockList, double id) {
+	public boolean searchStock(List<Stock> stockList, int id) {
 		for(Stock temp : stockList) {
 			if(temp.getStockID() == id) {
 				return true;

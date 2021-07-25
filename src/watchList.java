@@ -2,14 +2,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class watchList {
 	/*
 	 * State
 	 */
-	private double watchlistID; 
-	private double stockId; 
-	private double customerId; 
+	private int watchlistID; 
+	private int stockId; 
+	private int customerId; 
 	private Date dateAdded;
 	
 	/*
@@ -19,9 +20,9 @@ public class watchList {
 		
 	}
 	
-	public watchList(double stockId, double customerId) {
-		super();
-		this.watchlistID = Math.random();
+	public watchList(int stockId, int customerId) {
+		Random random = new Random();
+        this.watchlistID = Math.abs(random.nextInt());
 		this.stockId = stockId;
 		this.customerId = customerId;
 		
@@ -30,27 +31,27 @@ public class watchList {
 		this.dateAdded = date;
 	}
 
-	public double getWatchlistID() {
+	public int getWatchlistID() {
 		return watchlistID;
 	}
 
-	public void setWatchlistID(double watchlistID) {
+	public void setWatchlistID(int watchlistID) {
 		this.watchlistID = watchlistID;
 	}
 
-	public double getStockId() {
+	public int getStockId() {
 		return stockId;
 	}
 
-	public void setStockId(double stockId) {
+	public void setStockId(int stockId) {
 		this.stockId = stockId;
 	}
 
-	public double getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(double customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 
@@ -68,7 +69,7 @@ public class watchList {
 	 * @param customerId
 	 * @return
 	 */
-	public watchList add(double stockId, double customerId) {
+	public watchList add(int stockId, int customerId) {
 		return new watchList(stockId, customerId); 
 	}
 
@@ -78,7 +79,7 @@ public class watchList {
 	 * @param customerId
 	 * @return
 	 */
-	public List<watchList> delete(List<watchList> list, double id) {
+	public List<watchList> delete(List<watchList> list, int id) {
 		for(watchList item : list) {
 			if(item.getWatchlistID() == id) {
 				list.remove(item); 
@@ -95,7 +96,7 @@ public class watchList {
 	 * @param stockId
 	 * @param customerId
 	 */
-	public void edit(double stockId, double customerId) {
+	public void edit(int stockId, int customerId) {
 		this.stockId = stockId;
 		this.customerId = customerId;		
 	}
@@ -106,7 +107,7 @@ public class watchList {
 	 * @param id
 	 * @return
 	 */
-	public List<watchList> getTradersList(List<watchList> list, double id){
+	public List<watchList> getTradersList(List<watchList> list, int id){
 		List<watchList> newList = new ArrayList<watchList>();
 		for(watchList item : list) {
 			if(item.getCustomerId() == id) {
@@ -123,8 +124,8 @@ public class watchList {
 	 * @param id
 	 * @return
 	 */
-	public List<Double> getStockList(List<watchList> list, double id){
-		List<Double> newList = new ArrayList<Double>();
+	public List<Integer> getStockList(List<watchList> list, int id){
+		List<Integer> newList = new ArrayList<Integer>();
 		for(watchList item : list) {
 			if(item.getStockId() == id) {
 				newList.add(item.getCustomerId());
@@ -145,11 +146,11 @@ public class watchList {
 		Trader seller = getTraderByID(traders, invoice.getTraderId()); 
 		Stock stock = getStockByID(stocks, invoice.getStockID());
 		Trader temp = new Trader(); 
-		List<Double> list = this.getStockList(watchList, invoice.getStockID());
+		List<Integer> list = this.getStockList(watchList, invoice.getStockID());
 
 		if(list.size() >0) {
 			System.out.println("Attention for the following people :  "); 
-			for(double traderId : list) {
+			for(int traderId : list) {
 				temp = getTraderByID(traders, traderId);
 				System.out.format("%s %s\n", temp.getFirstName() , temp.getLastName());
 			}
@@ -169,11 +170,11 @@ public class watchList {
 		Trader buyer = getTraderByID(traders, invoice.getTraderId()); 
 		Stock stock = getStockByID(stocks, invoice.getStockID());
 		Trader temp = new Trader(); 
-		List<Double> list = this.getStockList(watchList, invoice.getStockID());
+		List<Integer> list = this.getStockList(watchList, invoice.getStockID());
 
 		if(list.size() >0) {
 			System.out.println("Attention for the following people :  "); 
-			for(double traderId : list) {
+			for(int traderId : list) {
 				temp = getTraderByID(traders, traderId);
 				System.out.format("%s %s\n", temp.getFirstName() , temp.getLastName());
 			}
@@ -189,7 +190,7 @@ public class watchList {
 	 * @param id
 	 * @return
 	 */
-	public Trader getTraderByID(List<Trader> tradersList, double id) {
+	public Trader getTraderByID(List<Trader> tradersList, int id) {
 		Trader data = null;
 		for(Trader temp : tradersList) {
 			if(temp.getTraderId() == id) {
@@ -207,7 +208,7 @@ public class watchList {
 	 * @param id
 	 * @return
 	 */
-	public Stock getStockByID(List<Stock> stockList, double id) {
+	public Stock getStockByID(List<Stock> stockList, int id) {
 		Stock data = null;
 		for(Stock temp : stockList) {
 			if(temp.getStockID() == id) {

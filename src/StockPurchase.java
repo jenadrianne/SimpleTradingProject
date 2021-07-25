@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class StockPurchase {
 
@@ -7,16 +8,16 @@ public class StockPurchase {
 	 * State Variables
 	 */
 	
-	private double purchaseID; 
-	private double stockID;
-	private double traderId; 
+	private int purchaseID; 
+	private int stockID;
+	private int traderId; 
 	private int stockQty; 
 	private double stockPrice; 
 	private Date purchaseDate;
 	
-	public StockPurchase(double stockID, double traderId, int stockQty, double stockPrice) {
-		super();
-		this.purchaseID = Math.random();
+	public StockPurchase(int stockID, int traderId, int stockQty, double stockPrice) {
+		Random random = new Random();
+        this.purchaseID = Math.abs(random.nextInt());
 		this.stockID = stockID;
 		this.traderId = traderId;
 		this.stockQty = stockQty;
@@ -33,16 +34,16 @@ public class StockPurchase {
 	public void setPurchaseID(int purchaseID) {
 		this.purchaseID = purchaseID;
 	}
-	public double getStockID() {
+	public int getStockID() {
 		return stockID;
 	}
-	public void setStockID(double stockID) {
+	public void setStockID(int stockID) {
 		this.stockID = stockID;
 	}
-	public double getTraderId() {
+	public int getTraderId() {
 		return traderId;
 	}
-	public void setTraderId(double traderId) {
+	public void setTraderId(int traderId) {
 		this.traderId = traderId;
 	}
 	public int getStockQty() {

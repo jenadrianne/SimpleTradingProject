@@ -6,7 +6,7 @@ public class Trader {
 	/*
 	 * State Variables
 	 */
-	private double TraderId; 
+	private int TraderId; 
 	private String lastName; 
 	private String firstName;
 	private String userName; 
@@ -31,15 +31,15 @@ public class Trader {
 		this.userName = userName; 
 		this.password = password;
 		Random random = new Random();
-        this.TraderId = random.nextInt();
+        this.TraderId = Math.abs(random.nextInt());
 		
 	}
 
-	public double getTraderId() {
+	public int getTraderId() {
 		return TraderId;
 	}
 
-	public void setTraderId(double traderId) {
+	public void setTraderId(int traderId) {
 		TraderId = traderId;
 	}
 
@@ -79,7 +79,7 @@ public class Trader {
 	 * Display Traders Info
 	 */
 	public void displayTraderInfo() {
-		System.out.format("TraderID : %f\n",  this.TraderId); 
+		System.out.format("TraderID : %d\n",  this.TraderId); 
 		System.out.format("Name : %s %s\n",  this.firstName,  this.lastName); 
 		System.out.format("username : %s\n",  this.userName); 
 	}
@@ -105,7 +105,7 @@ public class Trader {
 	 * @param tradersList
 	 * @param trader
 	 */
-	public List<Trader> deletePortfolio(List<Trader> tradersList, double id) {
+	public List<Trader> deletePortfolio(List<Trader> tradersList, int id) {
 		for(Trader temp : tradersList) {
 			if(temp.getTraderId() == id) {
 				tradersList.remove(temp); 
